@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(fhtw_line_follower)
+project(moro_project)
 add_definitions(-std=c++17 -Wall -pedantic -Wextra)
 
 find_package(catkin REQUIRED COMPONENTS
@@ -40,7 +40,7 @@ find_package(OpenCV REQUIRED)
 ###################################
 catkin_package(
   # INCLUDE_DIRS include
-  # LIBRARIES fhtw_line_follower
+  # LIBRARIES moro_project
   CATKIN_DEPENDS roscpp rospy message_runtime dynamic_reconfigure
   # DEPENDS system_lib
 )

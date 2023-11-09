@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>fhtw_line_follower</name>
+  <name>moro_project</name>
   <version>0.0.1</version>
   <description>The turtlebot3 linefollower package of the UAS Technikum Vienna</description>
 
