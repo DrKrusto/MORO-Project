@@ -8,7 +8,7 @@ from std_msgs import String
 class SimplePoseController:
     def __init__(self) -> None:
         self.pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-        self.sub = rospy.Subscriber('/motion', String)
+        self.sub = rospy.Subscriber('/motion', String, motion_callback)
         self.rate = rospy.Rate(1)
 
     # Controls the motion of the robot -> forward, backward, clockwise, counterclockwise, stop
