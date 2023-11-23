@@ -27,27 +27,30 @@ class SimplePoseController:
         elif command == "stop":
             speed.linear.x = 0
             speed.angular.z = 0
-
+        else
+            # Handle case where string matches nothing
+        
         self.pub.publish(speed)
     
     def go_to(self, goal_point:Point) -> None:
         speed : Twist = Twist()
         rho = float("inf")
 
-        while rho > 0.2:
-            delta_x = goal_point.x - self.x
-            delta_y = goal_point.y - self.y
-            rho = sqrt(delta_x**2 + delta_y**2)
-            angle_to_goal = atan2(delta_y, delta_x)
+        # while rho > 0.2:
+        # Message is centered on the image, negative = left, positive = right
+        delta_x = goal_point.x - self.x
+        delta_y = goal_point.y - self.y # y won't be needed for this task according to lecturer
+        rho = sqrt(delta_x**2 + delta_y**2)
+        angle_to_goal = atan2(delta_y, delta_x)
 
-            if abs(angle_to_goal - self.theta) > 0.1: # Lets the robot rotate
-                speed.linear.x = 0.0
-                speed.angular.z = 0.3
-            else: # Lets the robot drive forward
-                speed.linear.x = 0.22
-                speed.angular.z = 0.0
-            self.pub.publish(speed)
-            rospy.sleep(0.01)
+        if abs(angle_to_goal - self.theta) > 0.1: # Lets the robot rotate
+            speed.linear.x = 0.0
+            speed.angular.z = 0.3
+        else: # Lets the robot drive forward
+            speed.linear.x = 0.22
+            speed.angular.z = 0.0
+        self.pub.publish(speed)
+        rospy.sleep(0.01)
 
     def stop_robot(self) -> None: # Function to stop the robot
         speed : Twist = Twist()
