@@ -3,12 +3,14 @@
 import rospy
 from geometry_msgs import Twist
 from nav_msgs import Odometry
-from std_msgs import String
+from std_msgs import String, Float32
+from math import atan2, sqrt, hypot
 
 class SimplePoseController:
     def __init__(self) -> None:
         self.pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-        self.sub = rospy.Subscriber('/motion', String, motion_callback)
+        self.sub = rospy.Subscriber('/motion', String, self.motion_callback)
+        self.sub2 = rospy.Subscriber('/steering', Float32, self.go_to)
         self.rate = rospy.Rate(1)
 
     # Controls the motion of the robot -> forward, backward, clockwise, counterclockwise, stop
@@ -27,38 +29,31 @@ class SimplePoseController:
         elif command == "stop":
             speed.linear.x = 0
             speed.angular.z = 0
-        else
-            # Handle case where string matches nothing
+        else: # ignore all other values
+            pass
         
         self.pub.publish(speed)
     
-    def go_to(self, goal_point:Point) -> None:
+    def go_to(self, action:Float32) -> None:
+        action_val = float(action.data)
         speed : Twist = Twist()
-        rho = float("inf")
 
-        # while rho > 0.2:
         # Message is centered on the image, negative = left, positive = right
-        delta_x = goal_point.x - self.x
-        delta_y = goal_point.y - self.y # y won't be needed for this task according to lecturer
-        rho = sqrt(delta_x**2 + delta_y**2)
-        angle_to_goal = atan2(delta_y, delta_x)
-
-        if abs(angle_to_goal - self.theta) > 0.1: # Lets the robot rotate
+        if action_val < 0: # Rotate left
+            speed.linear.x = 0.0
+            speed.angular.z = -0.3
+        elif action_val > 0: # Rotate right
             speed.linear.x = 0.0
             speed.angular.z = 0.3
-        else: # Lets the robot drive forward
+        elif action_val == 0: # Move forward
             speed.linear.x = 0.22
+            speed.angular.z = 0
+        else: # In all other cases stop the robot
+            speed.linear.x = 0.0
             speed.angular.z = 0.0
+
         self.pub.publish(speed)
         rospy.sleep(0.01)
-
-    def stop_robot(self) -> None: # Function to stop the robot
-        speed : Twist = Twist()
-        
-        speed.linear.x = 0.0
-        speed.angular.z = 0.0
-
-        self.pub.publish(speed)
 
 
 if __name__ == '__main__':
