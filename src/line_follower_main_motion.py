@@ -12,7 +12,7 @@ class SimplePoseController:
     def __init__(self) -> None:
         self.pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
         self.sub = rospy.Subscriber('/motion', String, self.motion_callback)
-        self.sub2 = rospy.Subscriber('/steering', Float32, self.go_to)
+        self.sub2 = rospy.Subscriber('/steering', Float32, self.steering_callback)
         self.rate = rospy.Rate(1)
 
     # Controls the motion of the robot -> forward, backward, clockwise, counterclockwise, stop
@@ -36,7 +36,7 @@ class SimplePoseController:
         
         self.pub.publish(speed)
     
-    def go_to(self, action:Float32) -> None:
+    def steering_callback(self, action:Float32) -> None:
         action_val = float(action.data)
         speed : Twist = Twist()
 
