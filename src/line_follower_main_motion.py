@@ -3,9 +3,9 @@
 # Author: Markus Luftensteiner
 
 import rospy
-from geometry_msgs import Twist
-from nav_msgs import Odometry
-from std_msgs import String, Float32
+from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
+from std_msgs.msg import String, Float32
 from math import atan2, sqrt, hypot
 
 class SimplePoseController:
