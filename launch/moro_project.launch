@@ -34,12 +34,13 @@
     <!-- AMCL -->
     <include file="$(find moro_project)/launch/amcl.launch"/>
 
-x²
+    <node pkg="moro_project" name="line_detection" type="line_follower_main_detection.py" output="screen" />
+
     <!-- Start Dynamic Reconfigure -->
     <node name="reconf" pkg="rqt_reconfigure" type="rqt_reconfigure"/>
     <!-- RVIZ Configuration -->
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find moro_project)/config/config.rviz"/>
 
-</launch>
-        
+    <node pkg="rqt_image_view" type="rqt_image_view" name="image_view"/>
 
+</launch>
