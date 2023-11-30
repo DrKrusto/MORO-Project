@@ -46,8 +46,19 @@ class LineCenterMainDetection:
             cx = int(moments['m10'] / moments['m00'])
             cy = int(moments['m01'] / moments['m00'])
 
+            # Calculates the width of the line
+            width = np.count_nonzero(mask[cy, :])
+
             # Draws a circle on the center
             cv2.circle(image, (cx, cy), 3, (0, 0, 255), -1)
+
+            # Create a colored bounding box around the center position of the line
+            cv2.rectangle(image, (cx - width // 2, cy - 10),
+                          (cx + width // 2, cy + 10), (0, 0, 255), 2)
+            
+            # Create text on top of the bounding box
+            cv2.putText(image, "Line Detected", (cx - width // 2, cy - 15),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
             # Calculates on which portion of the image the line is
             new_position = -1 if cx < w/3 else 1 if cx < 2*w/3 else 0
