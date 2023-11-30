@@ -39,7 +39,7 @@ x²
     <node name="reconf" pkg="rqt_reconfigure" type="rqt_reconfigure"/>
     <!-- RVIZ Configuration -->
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find moro_project)/config/config.rviz"/>
-
+    <node name="motion_node" pkg="moro_project" type="line_follower_main_motion.py" output="screen"/>
 </launch>
         
 
