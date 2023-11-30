@@ -41,6 +41,6 @@
     <!-- RVIZ Configuration -->
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find moro_project)/config/config.rviz"/>
 
-    <node pkg="rqt_image_view" type="rqt_image_view" name="image_view"/>
+    <!-- <node pkg="rqt_image_view" type="rqt_image_view" name="image_view"/> -->
 
 </launch>
