@@ -11,22 +11,20 @@ from math import atan2, sqrt, hypot
 class SimplePoseController:
     def __init__(self) -> None:
         self.pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-        self.sub = rospy.Subscriber('/motion', String, self.motion_callback)
-        self.sub2 = rospy.Subscriber('/steering', Float32, self.steering_callback)
+        self.sub = rospy.Subscriber('/line_position', String, self.line_position_callback)
+        self.sub2 = rospy.Subscriber('/line_x_position', Float32, self.line_x_position_callback)
         self.rate = rospy.Rate(1)
 
     # Controls the motion of the robot -> forward, backward, clockwise, counterclockwise, stop
-    def motion_callback(self, msg:String):
+    def line_position_callback(self, msg:String):
         command = msg.data
         speed : Twist = Twist()
 
-        if command == "forward":
+        if command == "centre":
             speed.linear.x = 0.22
-        elif command == "backward":
-            speed.linear.x = -0.22
-        elif command == "clockwise":
+        elif command == "right":
             speed.angular.z = 0.3
-        elif command == "counterclockwise":
+        elif command == "left":
             speed.angular.z = -0.3
         elif command == "stop":
             speed.linear.x = 0
@@ -36,7 +34,7 @@ class SimplePoseController:
         
         self.pub.publish(speed)
     
-    def steering_callback(self, action:Float32) -> None:
+    def line_x_position_callback(self, action:Float32) -> None:
         action_val = float(action.data)
         speed : Twist = Twist()
 

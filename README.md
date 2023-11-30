@@ -14,14 +14,13 @@ Line followr main_motion: Markus Luftensteiner
 Autonomous drive + path planning: Baptiste Lorenzi
 
 # Switching between steering methods in main_motion
-Depending on whether a bang-bang mode or proportional mode is wanted, one publishes the following to the following topics:
-- /motion (String)
- - "forward"
- - "backward"
- - "clockwise"
- - "counterclockwise"
+Depending on the operating mode set in the server one of the following topics is used to steer the robot:
+- /line_position (String)
+ - "centre"
+ - "right"
+ - "left"
  - "stop"
-- /steering (Float32)
+- /line_x_position (Float32)
  - positive value: turn right
  - negative value: turn left
  - 0: go forward
