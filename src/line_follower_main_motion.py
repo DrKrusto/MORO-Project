@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# Author: Markus Luftensteiner
+
 import rospy
 from geometry_msgs import Twist
 from nav_msgs import Odometry
