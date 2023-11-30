@@ -14,7 +14,7 @@ Line followr main_motion: Markus Luftensteiner
 Autonomous drive + path planning: Baptiste Lorenzi
 
 # Switching between steering methods in main_motion
-Depending on the operating mode set in the server one of the following topics is used to steer the robot:
+Depending on the operating mode set in the server ("steering_method" being "bangbang" or "proportional") the callback function of one of the following topics is used to steer the robot:
 - /line_position (String)
  - "centre"
  - "right"
@@ -24,3 +24,5 @@ Depending on the operating mode set in the server one of the following topics is
  - positive value: turn right
  - negative value: turn left
  - 0: go forward
+
+To switch the callback function used the function "switch_steering_method" can be called to switch between "bangbang" and "proportional".
