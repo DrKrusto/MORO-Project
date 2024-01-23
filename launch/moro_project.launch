@@ -6,7 +6,7 @@
     <arg name="z_pos"   default="0"/> 
     <arg name="roll"    default="0"/>
     <arg name="pitch"   default="0"/>
-    <arg name="yaw"     default="1.5707"/>
+    <arg name="yaw"     default="-1.5707"/>
     <arg name="gui"     default="true"/>
 
 
@@ -27,19 +27,26 @@
     <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_burger -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -param robot_description" />
 
     <!-- Start Move_Base -->
-    <!-- <include file="$(find moro_project)/launch/move_base_project.launch"/> -->
+    <include file="$(find moro_project)/launch/move_base_project.launch"/>
+
+    <!-- ... autres parties du fichier de lancement ... -->
+
+    <node pkg="moro_project" type="path_planing.py" name="path_planning_node" output="screen"/>
+
+    <!-- ... autres parties du fichier de lancement ... -->
+
 
     <!-- Map server -->
     <node pkg="map_server" name="map_server" type="map_server" args="$(find moro_project)/maps/project/maze.yaml"/>
     <!-- AMCL -->
     <include file="$(find moro_project)/launch/amcl.launch"/>
 
-x²
+
     <!-- Start Dynamic Reconfigure -->
     <node name="reconf" pkg="rqt_reconfigure" type="rqt_reconfigure"/>
     <!-- RVIZ Configuration -->
-    <node pkg="rviz" name="rviz" type="rviz" args="-d $(find moro_project)/config/config.rviz"/>
-    <node name="motion_node" pkg="moro_project" type="line_follower_main_motion.py" output="screen"/>
+    <node pkg="rviz" name="rviz" type="rviz" args="-d $(find moro_project)/launch/config.rviz"/>
+
 </launch>
         
 
