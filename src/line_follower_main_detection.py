@@ -64,7 +64,7 @@ class LineCenterMainDetection:
             new_position = -1 if cx < w/3 else 1 if cx < 2*w/3 else 0
 
             # Publishes the portion of the line            
-            self.line_position_pub.publish(self.center_portion)
+            self.line_position_pub.publish(new_position)
 
             # Publish the x position of the line
             self.line_x_position_pub.publish(cx)
