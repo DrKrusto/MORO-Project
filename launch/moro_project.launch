@@ -33,14 +33,12 @@
     <node pkg="map_server" name="map_server" type="map_server" args="$(find moro_project)/maps/project/maze.yaml"/>
     <!-- AMCL -->
     <include file="$(find moro_project)/launch/amcl.launch"/>
-
+    
     <node pkg="moro_project" name="line_detection" type="line_follower_main_detection.py" output="screen" />
 
     <!-- Start Dynamic Reconfigure -->
     <node name="reconf" pkg="rqt_reconfigure" type="rqt_reconfigure"/>
     <!-- RVIZ Configuration -->
     <node pkg="rviz" name="rviz" type="rviz" args="-d $(find moro_project)/config/config.rviz"/>
-
-    <!-- <node pkg="rqt_image_view" type="rqt_image_view" name="image_view"/> -->
-
+    <node name="motion_node" pkg="moro_project" type="line_follower_main_motion.py" output="screen"/>
 </launch>
