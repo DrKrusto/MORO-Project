@@ -64,7 +64,7 @@ class SimplePoseController:
 if __name__ == '__main__':
     rospy.init_node('motion_node')
 
-    rospy.set_param('steering_method', 'bangbang') # Default mode on 
+    rospy.set_param('steering_method', 'proportional') # Default mode on 
 
     simple_pose_controller = SimplePoseController()
 
