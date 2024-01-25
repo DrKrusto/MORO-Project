@@ -62,11 +62,9 @@ class LineCenterMainDetection:
 
             # Calculates on which portion of the image the line is
             new_position = -1 if cx < w/3 else 1 if cx < 2*w/3 else 0
-        
-            # We avoid publishing the same information over and over again
-            if (self.center_portion != new_position):
-                self.center_portion = new_position
-                self.line_position_pub.publish(self.center_portion)
+
+            # Publishes the portion of the line            
+            self.line_position_pub.publish(self.center_portion)
 
             # Publish the x position of the line
             self.line_x_position_pub.publish(cx)
